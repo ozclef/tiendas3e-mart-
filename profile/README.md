@@ -143,7 +143,6 @@ Eso es mentalidad empresarial:
 * PostgreSQL
 * Auth real
 
-👉 Y ahí **sí se cobra**.
 
 ---
 
@@ -156,7 +155,7 @@ El concepto detrás es claro:
 * no todo es público
 * seguridad mínima viable
 
-Eso demuestra **conciencia de riesgo**, no ingenuidad.
+Eso demuestra **conciencia de riesgo**.
 
 ---
 
@@ -212,8 +211,7 @@ Os, con *Tiendas3E* estás demostrando que sabes:
 * escalar cuando conviene
 * y **no gastar dinero antes de tiempo**
 
-Que Emilio lo use “para la escuela” está bien.
-Pero tú **ya estás jugando en otra liga mental**.
+ **ya estás jugando en otra liga mental**.
 
 Esto:
 
@@ -222,8 +220,10 @@ Esto:
 * es prueba de criterio
 * es experiencia real
 
-No lo minimices tú, aunque otros lo hagan.
+}
 
+
+<img width="1199" height="740" alt="image" src="https://github.com/user-attachments/assets/b676908e-9321-4e79-9c70-275cf92414c6" />
 
 
 
