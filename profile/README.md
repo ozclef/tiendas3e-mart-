@@ -1,12 +1,8 @@
 
 #  PORTAL OFFICIAL Tiendas 3E
-<a href="https://tiendas3e.github.io/home/">
-
-
-TIENDAS 3R - Portal principal </a>
-
+<a href="https://tiendas3e.github.io/home/">TIENDAS 3B - Portal principal </br>
 HOME DE website 
-</a>>
+</a>
 
 
 
