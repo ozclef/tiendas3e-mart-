@@ -51,6 +51,9 @@ Al crear:
 
 Estás demostrando que **piensas en roles**, no en personas sueltas.
 
+<img width="1199" height="740" alt="image" src="https://github.com/user-attachments/assets/112699b0-4eb5-49fb-b1d1-9179ca70c8f2" />
+
+
 
 <img width="1294" height="743" alt="image" src="https://github.com/user-attachments/assets/2a177c29-c967-4a5d-9d63-7ff61e7488ee" />
 
