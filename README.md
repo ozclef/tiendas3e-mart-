@@ -14,6 +14,10 @@ SEGUIMIENTO DE ESTANCIAS Y ESTADIAS
   website hoja excel 
 
 
+<img width="1199" height="624" alt="image" src="https://github.com/user-attachments/assets/04cc09a9-fd67-4cfc-9e32-8eb67615a719" />
+
+
+
 ------
 =====
 
