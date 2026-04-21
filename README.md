@@ -1,13 +1,21 @@
 # .github
 
 
-organizacion tiendas3e por emilio y oz
+organizacion tiendas3e por EMILIO MEDIETA---
 
 ---
 
 .github para README.md  -- sistema complejo donde se crea un proyecto para La universidad politecnica de tlaxcala funcional localstorage simulado demo --- escalable a proyectos de vida
 
+<a href="https://tiendas3e.github.io/.github/analisisRC.html">
+SEGUIMIENTO DE ESTANCIAS Y ESTADIAS 
+</a>
 
+  website hoja excel 
+
+
+------
+=====
 
 #  PORTAL OFFICIAL Tiendas 3E
 
@@ -28,7 +36,7 @@ https://tiendas3e.github.io/menu/
 -----
 
 
-###   Perfecto, Oscar. Te armé un README.md bien estructurado y “poderosísimo” para tu repositorio **Tiendas3E/caducidades**, que refleja el inventario real, las caducidades y la lógica con HTML, JS y JSON. Aquí tienes una propuesta lista para pegar en tu repo:
+###   repositorio **Tiendas3E/caducidades**, que refleja el inventario real, las caducidades y la lógica con HTML, JS y JSON. Aquí tienes una propuesta lista para pegar en tu repo:
 
 ```markdown
 # 🏪 Tiendas 3E - Sistema de Caducidades e Inventario
