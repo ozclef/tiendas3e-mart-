@@ -51,6 +51,11 @@ Al crear:
 
 Estás demostrando que **piensas en roles**, no en personas sueltas.
 
+
+<img width="1294" height="743" alt="image" src="https://github.com/user-attachments/assets/2a177c29-c967-4a5d-9d63-7ff61e7488ee" />
+
+
+
 Eso es **gestión**, no solo código.
 
 ---
