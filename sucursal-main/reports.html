@@ -1,0 +1,345 @@
+
+
+
+<!----
+```
+
+📈 Parte 15 — reports.html (Sistema de Reportes Avanzados)
+
+```html
+----->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema Shop - Reportes</title>
+  <link rel="stylesheet" href="styles_system.css" />
+  <style>
+    .reports-container {
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .reports-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .report-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 5px solid #004aad;
+      text-align: center;
+    }
+
+    .report-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .report-icon {
+      font-size: 3em;
+      margin-bottom: 15px;
+    }
+
+    .report-card h3 {
+      color: #004aad;
+      margin-bottom: 10px;
+    }
+
+    .report-content {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    .chart-container {
+      width: 100%;
+      height: 400px;
+      margin: 20px 0;
+    }
+
+    .report-actions {
+      display: flex;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .action-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .primary-btn {
+      background: #004aad;
+      color: white;
+    }
+
+    .secondary-btn {
+      background: #6c757d;
+      color: white;
+    }
+
+    .success-btn {
+      background: #28a745;
+      color: white;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    .data-table th {
+      background: #004aad;
+      color: white;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .kpi-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      border-left: 4px solid #004aad;
+    }
+
+    .kpi-value {
+      font-size: 2em;
+      font-weight: bold;
+      color: #004aad;
+    }
+
+    .kpi-label {
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📊 Reportes y Analytics</h1>
+    <nav>
+      <button onclick="location.href='index.html'">Inicio</button>
+      <button onclick="location.href='auditor.html'">Auditoría</button>
+      <button onclick="logout()">Cerrar Sesión</button>
+    </nav>
+  </header>
+
+  <div class="reports-container">
+    <!-- Grid de Reportes Disponibles -->
+    <div class="reports-grid">
+      <div class="report-card" onclick="showReport('sales')">
+        <div class="report-icon">📈</div>
+        <h3>Reporte de Ventas</h3>
+        <p>Análisis detallado de ventas por período, productos más vendidos y tendencias</p>
+      </div>
+
+      <div class="report-card" onclick="showReport('inventory')">
+        <div class="report-icon">📦</div>
+        <h3>Reporte de Inventario</h3>
+        <p>Stock actual, productos con movimiento, artículos con stock bajo</p>
+      </div>
+
+      <div class="report-card" onclick="showReport('financial')">
+        <div class="report-icon">💰</div>
+        <h3>Reporte Financiero</h3>
+        <p>Ingresos, egresos, utilidades y métricas financieras clave</p>
+      </div>
+
+      <div class="report-card" onclick="showReport('products')">
+        <div class="report-icon">🏷️</div>
+        <h3>Productos Más Vendidos</h3>
+        <p>Top productos por ingresos, cantidad vendida y margen de utilidad</p>
+      </div>
+    </div>
+
+    <!-- Contenido de Reportes -->
+    <div id="salesReport" class="report-content">
+      <h2>📈 Reporte de Ventas</h2>
+      <div class="report-actions">
+        <button class="action-btn primary-btn" onclick="exportSalesReport()">📤 Exportar Excel</button>
+        <button class="action-btn secondary-btn" onclick="printSalesReport()">🖨️ Imprimir</button>
+      </div>
+      
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-value" id="totalSalesKpi">$0</div>
+          <div class="kpi-label">Ventas Totales</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" id="avgTicketKpi">$0</div>
+          <div class="kpi-label">Ticket Promedio</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" id="transactionsKpi">0</div>
+          <div class="kpi-label">Transacciones</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" id="productsSoldKpi">0</div>
+          <div class="kpi-label">Productos Vendidos</div>
+        </div>
+      </div>
+
+      <div class="chart-container" id="salesChart">
+        <!-- Gráfico se insertará aquí -->
+        <p style="text-align: center; padding: 50px; color: #666;">
+          Gráfico de ventas por día (se implementaría con una librería como Chart.js)
+        </p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Transacciones</th>
+            <th>Productos Vendidos</th>
+            <th>Total Ventas</th>
+            <th>Ticket Promedio</th>
+          </tr>
+        </thead>
+        <tbody id="salesTableBody">
+          <!-- Datos de ventas se cargarán aquí -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="inventoryReport" class="report-content">
+      <h2>📦 Reporte de Inventario</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-value" id="totalProductsKpi">0</div>
+          <div class="kpi-label">Total Productos</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" id="lowStockKpi">0</div>
+          <div class="kpi-label">Stock Bajo</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" id="outOfStockKpi">0</div>
+          <div class="kpi-label">Sin Stock</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value" id="totalValueKpi">$0</div>
+          <div class="kpi-label">Valor Total Inventario</div>
+        </div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Código</th>
+            <th>Stock Actual</th>
+            <th>Precio</th>
+            <th>Valor Total</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="inventoryTableBody">
+          <!-- Datos de inventario se cargarán aquí -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="storage-utils.js"></script>
+  <script>
+    if (!requireAuth()) {
+      window.location.href = 'login.html';
+    }
+
+    let currentInventory = [];
+    let currentTransactions = [];
+
+    document.addEventListener('DOMContentLoaded', async function() {
+      await loadData();
+      // Mostrar reporte de ventas por defecto
+      showReport('sales');
+    });
+
+    async function loadData() {
+      currentInventory = await loadInventory();
+      currentTransactions = getTransactions();
+    }
+
+    function showReport(reportType) {
+      // Ocultar todos los reportes primero
+      document.querySelectorAll('.report-content').forEach(el => {
+        el.style.display = 'none';
+      });
+
+      // Mostrar el reporte seleccionado
+      const reportElement = document.getElementById(`${reportType}Report`);
+      if (reportElement) {
+        reportElement.style.display = 'block';
+        loadReportData(reportType);
+      }
+    }
+
+    function loadReportData(reportType) {
+      switch(reportType) {
+        case 'sales':
+          loadSalesReport();
+          break;
+        case 'inventory':
+          loadInventoryReport();
+          break;
+        case 'financial':
+          loadFinancialReport();
+          break;
+        case 'products':
+          loadProductsReport();
+          break;
+      }
+    }
+
+    function loadSalesReport() {
+      const today = new Date().toDateString();
+      const todayTransactions = currentTransactions.filter(t => 
+        new Date(t.timestamp).toDateString() === today
+      );
+
+      const totalSales = currentTransactions.reduce((sum, t) => sum + (t.total || 0), 0);
+      const totalProductsSold = currentTransactions.reduce((sum, t) => 
+        sum + (t.items ? t.items.reduce((itemSum, item) => itemSum + item.cantidad, 0) : 0), 0
+      );
+      const avgTicket = currentTransactions.length > 0 ? totalSales / currentTransactions.length : 0;
+
+      // Actualizar KPIs
+      document.getElementById('totalSalesKpi').textContent = `$${totalSales.toFixed(2)}`;
+      document.getElementById('avgTicketKpi').textContent = `$${avgTicket.toFixed(2)}`;
+      document.getElementById('transactionsKpi').textContent = currentTransactions.length;
+      document.getElementById('productsSoldKpi').textContent = totalProductsSold;
+
+      // Agrupar transacciones por fecha
+   

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Sistema Shop</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+        .loading { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test del Sistema Shop</h1>
+    <div id="status">
+        <p class="loading">⏳ Iniciando prueba...</p>
+    </div>
+
+    <script>
+        async function testSystem() {
+            const status = document.getElementById('status');
+            
+            try {
+                // Test 1: Cargar inventario desde GitHub
+                status.innerHTML = '<p class="loading">🔍 Cargando inventario desde GitHub...</p>';
+                
+                const response = await fetch('https://raw.githubusercontent.com/BI-US/no-system/main/inventario.json');
+                if (!response.ok) throw new Error('Error HTTP: ' + response.status);
+                
+                const inventory = await response.json();
+                
+                status.innerHTML += `<p class="success">✅ ¡CONEXIÓN EXITOSA!</p>`;
+                status.innerHTML += `<p class="success">📦 Se cargaron ${inventory.length} productos</p>`;
+                
+                // Mostrar algunos productos
+                status.innerHTML += `<h3>📋 Primeros 3 productos:</h3>`;
+                inventory.slice(0, 3).forEach(product => {
+                    status.innerHTML += `
+                        <div style="border: 1px solid #ccc; padding: 10px; margin: 5px;">
+                            <strong>${product.nombre}</strong><br>
+                            Código: ${product.codigo} | Precio: $${product.precio} | Stock: ${product.stock}
+                        </div>
+                    `;
+                });
+                
+                status.innerHTML += `<p class="success">🎉 ¡Tu sistema está listo para funcionar!</p>`;
+                
+            } catch (error) {
+                status.innerHTML = `
+                    <p class="error">❌ ERROR: ${error.message}</p>
+                    <p>Posibles soluciones:</p>
+                    <ul>
+                        <li>Verifica que la URL del inventario sea correcta</li>
+                        <li>Revisa que el archivo inventario.json esté en GitHub</li>
+                        <li>Prueba en otro navegador</li>
+                    </ul>
+                `;
+            }
+        }
+
+        // Ejecutar prueba automáticamente
+        testSystem();
+    </script>
+</body>
+</html>

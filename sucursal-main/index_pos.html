@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Punto de Venta</title>
+  <link rel="stylesheet" href="styles_system.css" />
+</head>
+<body>
+  <header>
+    <h1>Sistema de Punto de Venta</h1>
+    <nav>
+      <button onclick="location.href='index.html'">Inicio</button>
+      <button onclick="location.href='admin.html'">Admin</button>
+      <button onclick="location.href='auditor.html'">Auditor</button>
+      <button onclick="location.href='reports.html'">Reportes</button>
+    </nav>
+  </header>
+
+  <main id="pos-app">
+    <section id="search">
+      <input type="text" id="searchInput" placeholder="Buscar producto..." />
+      <button id="clearSearch">Limpiar</button>
+    </section>
+
+    <section id="productList"></section>
+
+    <section id="cart">
+      <h2>Carrito</h2>
+      <table id="cartTable">
+        <thead>
+          <tr><th>Producto</th><th>Cant.</th><th>Precio</th><th>Subtotal</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="cartSummary">
+        <p><b>Total:</b> <span id="totalDisplay">$0.00</span></p>
+        <input id="amountReceived" placeholder="Monto recibido" type="number" />
+        <button id="checkoutBtn">Cobrar</button>
+        <p id="changeDisplay"></p>
+      </div>
+    </section>
+
+    <section id="ticket">
+      <h3>Ticket</h3>
+      <pre id="receipt"></pre>
+    </section>
+  </main>
+
+  <!-- ⚠️ ORDEN CRÍTICO - DEBE SER EXACTAMENTE ASÍ -->
+  <script src="auth.js"></script>
+  <script src="storage-utils.js"></script>
+  <script src="accounting.js"></script>  <!-- ¡ESTE ES IMPORTANTE! -->
+  <script src="pos.js"></script>
+</body>
+</html>
+
+<!-----
+  index_pos.html
+admin.html
+auditor.html
+reports.html
+
+styles_system.css
+
+storage-utils.js
+accounting.js
+pos.js
+app_admin.js
+app_auditor.js
+auth.js
+
+
+---
+
+🪶 Parte 2 — HTML principal del Punto de Venta (index_pos.html)
+
+Copia este contenido (funcional y limpio, carga todo por fetch('inventario.json')):
+------->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Punto de Venta</title>
+  <link rel="stylesheet" href="styles_system.css" />
+<style>
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  margin: 1rem;
+  background: #f7f9fb;
+  color: #333;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #004aad;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+nav button {
+  margin: 0 5px;
+  padding: 6px 10px;
+  border: none;
+  background: #fff;
+  color: #004aad;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+nav button:hover { background: #d0e2ff; }
+
+#search { margin-top: 1rem; }
+#search input { padding: 6px; width: 200px; }
+
+#productList {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  width: 200px;
+  background: white;
+  cursor: pointer;
+}
+
+#cart { margin-top: 1.5rem; background: #fff; padding: 1rem; border-radius: 8px; }
+#cartTable { width: 100%; border-collapse: collapse; }
+#cartTable th, #cartTable td { border-bottom: 1px solid #ccc; padding: 4px; }
+
+#cartSummary { margin-top: 1rem; }
+#cartSummary input { width: 100px; padding: 4px; }
+
+#ticket { margin-top: 1rem; background: #fff; padding: 1rem; border-radius: 8px; }
+pre { background: #f2f2f2; padding: 1rem; border-radius: 8px; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Sistema de Punto de Venta</h1>
+    <nav>
+      <button onclick="location.href='admin.html'">Admin</button>
+      <button onclick="location.href='auditor.html'">Auditor</button>
+      <button onclick="location.href='reports.html'">Reportes</button>
+    </nav>
+  </header>
+
+  <main id="pos-app">
+    <section id="search">
+      <input type="text" id="searchInput" placeholder="Buscar producto..." />
+      <button id="clearSearch">Limpiar</button>
+    </section>
+
+    <section id="productList"></section>
+
+    <section id="cart">
+      <h2>Carrito</h2>
+      <table id="cartTable">
+        <thead>
+          <tr><th>Producto</th><th>Cant.</th><th>Precio</th><th>Subtotal</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="cartSummary">
+        <p><b>Total:</b> <span id="totalDisplay">$0.00</span></p>
+        <input id="amountReceived" placeholder="Monto recibido" type="number" />
+        <button id="checkoutBtn">Cobrar</button>
+        <p id="changeDisplay"></p>
+      </div>
+    </section>
+
+    <section id="ticket">
+      <h3>Ticket</h3>
+      <pre id="receipt"></pre>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+  <script src="storage-utils.js"></script>
+  <script src="accounting.js"></script>
+  <script src="pos.js"></script>
+</body>
+</html>
+
+
+
+
+<!-------
+<!-- Don't use this -- >
+<script src="https://raw.githubusercontent.com/ozclef/sistem-shop/main/pos.js"></script>
+
+<!-- Use this instead -- >
+<script src="https://ozclef.github.io/sistem-shop/pos.js"></script>
+
+storage-utils.js - Inventory management core:
+
+loadInventory() - Fetches inventario.json using fetch()
+
+updateInventory() - PATCH requests to update stock
+
+saveTransaction() - POST new sales to transaction history
+
+pos.js - Point of sale functionality:
+
+Cart management (add/remove items, calculate totals)
+
+Checkout process with change calculation
+
+Receipt generation
+
+Search and product filtering
+
+accounting.js - Financial operations:
+
+Daily closing calculations (X and Z reports)
+
+Payment reconciliation
+
+Tax calculations and financial reporting
+
+💡 Alternative CDN Options
+If you need to reference external libraries or want additional hosting options:
+
+jsDelivr: A free CDN that can serve files from GitHub repositories
+
+html
+<script src="https://cdn.jsdelivr.net/gh/ozclef/sistem-shop@main/pos.js"></script>
+📚 Learning from Similar Projects
+--------
+
+javascript
+
+🚀 Parte 7 — Inicializar el sistema
+Ahora solo necesitas crear el archivo inventario.json en la misma carpeta:
+
+json
+[
+  {
+    "id": 1,
+    "codigo": "PROD001",
+    "nombre": "Laptop Gamer",
+    "precio": 15000,
+    "stock": 10,
+    "categoria": "Tecnología"
+  },
+  {
+    "id": 2,
+    "codigo": "PROD002", 
+    "nombre": "Mouse Inalámbrico",
+    "precio": 450,
+    "stock": 25,
+    "categoria": "Tecnología"
+  },
+  {
+    "id": 3,
+    "codigo": "PROD003",
+    "nombre": "Teclado Mecánico",
+    "precio": 1200,
+    "stock": 15,
+    "categoria": "Tecnología"
+  }
+]
+
+
+Este código crea una página de inicio con un menú de tarjetas que enlazan a las diferentes secciones. Cada tarjeta tiene un título, un icono y una descripción. Además, he añadido un footer simple.
+
+Nota: Asegúrate de que los archivos HTML a los que enlazas (admin.html, auditor.html, etc.) existan en tu proyecto. Si no, puedes crearlos más adelante.
+
+Si necesitas que te ayude con el contenido de alguna de esas páginas (como admin.html, auditor.html, etc.), házmelo saber y procedemos paso a paso.
+
+¿Quieres que continuemos con alguna página en particular?
+
+¡Perfecto! Te entiendo completamente. Vamos a crear un menú principal bien organizado con cards para cada módulo del sistema. Aquí está el HTML completo:
+
+🏠 Parte 8 — index.html (Menú Principal con Cards)
+html

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión - Menú Principal</title>
+    <link rel="stylesheet" href="styles_system.css">
+    <style>
+        /* Estilos adicionales para las tarjetas del menú */
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 200px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #004aad;
+        }
+
+        .card p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gestión Comercial</h1>
+        <nav>
+            <button onclick="location.href='index.html'">Inicio</button>
+            <!-- Si ya hay una página de login, puedes enlazarla aquí -->
+            <button onclick="location.href='login.html'">Iniciar Sesión</button>
+        </nav>
+    </header>
+
+    <main>
+        <div class="menu-container">
+            <!-- Card para Punto de Venta -->
+            <div class="card" onclick="location.href='index_pos.html'">
+                <h3>🛒 Punto de Venta</h3>
+                <p>Accede al sistema de ventas y gestión de transacciones.</p>
+            </div>
+
+            <!-- Card para Administración -->
+            <div class="card" onclick="location.href='admin.html'">
+                <h3>⚙️ Administración</h3>
+                <p>Gestiona inventario, productos y configuraciones.</p>
+            </div>
+
+            <!-- Card para Auditoría -->
+            <div class="card" onclick="location.href='auditor.html'">
+                <h3>🔍 Auditoría</h3>
+                <p>Revisa y audita las transacciones y movimientos.</p>
+            </div>
+
+            <!-- Card para Reportes -->
+            <div class="card" onclick="location.href='reports.html'">
+                <h3>📊 Reportes</h3>
+                <p>Genera reportes de ventas, inventario y más.</p>
+            </div>
+
+            <!-- Card para Perfil del Personal -->
+            <div class="card" onclick="location.href='profile.html'">
+                <h3>👨‍💼 Perfil</h3>
+                <p>Gestiona tu perfil y información de empleados.</p>
+            </div>
+
+            <!-- Card para Cortes de Caja -->
+            <div class="card" onclick="location.href='cortes.html'">
+                <h3>💳 Cortes</h3>
+                <p>Realiza cortes de caja (X y Z) y conciliaciones.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; margin-top: 40px;">
+        <p>&copy; 2024 Sistema de Gestión Comercial. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

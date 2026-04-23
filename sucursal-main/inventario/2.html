@@ -1,0 +1,783 @@
+<!----
+
+
+¡Perfecto! Veo que ya tienes un sistema de caducidades funcionando. Vamos a integrar esa funcionalidad en el sistema principal. Te ayudo a crear una versión unificada que combine todo.
+
+## 📋 inventory-completo.html
+
+```html
+
+------->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Shop - Inventario Completo</title>
+    <link rel="stylesheet" href="styles_system.css">
+    <style>
+        .inventory-container {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .filter-select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            min-width: 150px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #004aad;
+        }
+
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #004aad;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .inventory-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .inventory-table th {
+            background: #004aad;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .inventory-table th:hover {
+            background: #003a8a;
+        }
+
+        .inventory-table th::after {
+            content: '↕';
+            position: absolute;
+            right: 10px;
+            opacity: 0.7;
+        }
+
+        .inventory-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .inventory-table tr:hover {
+            background: #f5f9ff;
+        }
+
+        .price {
+            text-align: right;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .stock {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .status-caducado {
+            background: #ffd6d6 !important;
+        }
+
+        .status-por_vencer {
+            background: #fff3cd !important;
+        }
+
+        .status-ok {
+            background: #e6ffed !important;
+        }
+
+        .status-sin_fecha {
+            background: #f8f9fa !important;
+        }
+
+        .editable {
+            outline: none;
+            border: 1px dashed #ccc;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .editable:focus {
+            border: 1px solid #004aad;
+            background: #f0f8ff;
+        }
+
+        .export-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .export-btn:hover {
+            background: #218838;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .tab {
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 6px;
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: #004aad;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📦 Inventario Completo con Caducidades</h1>
+        <nav>
+            <button onclick="location.href='index.html'">Inicio</button>
+            <button onclick="location.href='index_pos.html'">Punto de Venta</button>
+            <button onclick="refreshData()">🔄 Actualizar</button>
+        </nav>
+    </header>
+
+    <div class="inventory-container">
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('inventario')">📋 Inventario</div>
+            <div class="tab" onclick="showTab('caducidades')">📅 Caducidades</div>
+        </div>
+
+        <!-- Pestaña de Inventario -->
+        <div id="inventario-tab" class="tab-content active">
+            <div class="controls">
+                <input type="text" id="searchInput" class="search-box" 
+                       placeholder="🔍 Buscar productos por nombre, código, categoría...">
+                
+                <div class="filters">
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="all">Todas las categorías</option>
+                    </select>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="all">Todos los estados</option>
+                        <option value="ok">Stock Normal</option>
+                        <option value="low">Stock Bajo</option>
+                        <option value="out">Sin Stock</option>
+                    </select>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalProducts">0</div>
+                        <div class="stat-label">Total Productos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="lowStockCount">0</div>
+                        <div class="stat-label">Stock Bajo</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="expiringCount">0</div>
+                        <div class="stat-label">Por Vencer</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalValue">$0</div>
+                        <div class="stat-label">Valor Total</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="inventory-table" id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('id')">ID</th>
+                            <th onclick="sortTable('codigo')">Código</th>
+                            <th onclick="sortTable('nombre')">Nombre</th>
+                            <th onclick="sortTable('precio')">Precio</th>
+                            <th onclick="sortTable('stock')">Stock</th>
+                            <th onclick="sortTable('categoria')">Categoría</th>
+                            <th>Estado Stock</th>
+                            <th>Caducidad</th>
+                            <th>Días Restantes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td colspan="9" style="text-align: center; padding: 40px; color: #666;">
+                                Cargando inventario...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pestaña de Caducidades -->
+        <div id="caducidades-tab" class="tab-content">
+            <div class="controls">
+                <input type="text" id="searchCaducidades" class="search-box" 
+                       placeholder="🔍 Buscar en caducidades...">
+                
+                <div class="filters">
+                    <select id="caducidadFilter" class="filter-select">
+                        <option value="all">Todas las caducidades</option>
+                        <option value="caducado">Caducados</option>
+                        <option value="por_vencer">Por Vencer (≤7 días)</option>
+                        <option value="ok">En Tiempo</option>
+                        <option value="sin_fecha">Sin Fecha</option>
+                    </select>
+                </div>
+
+                <button class="export-btn" onclick="exportarCaducidades()">
+                    💾 Exportar Reporte de Caducidades
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Stock</th>
+                            <th>Fecha Fabricación</th>
+                            <th>Fecha Caducidad</th>
+                            <th>Vida Útil (días)</th>
+                            <th>Estado</th>
+                            <th>Días Restantes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="caducidadesBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 40px; color: #666;">
+                                Cargando información de caducidades...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="inventory-completo.js"></script>
+
+  <!-----
+</body>
+</html>
+```
+
+## 📜 inventory-completo.js
+
+```javascript
+
+  -------
+  <script>
+// inventory-completo.js - Sistema unificado de inventario y caducidades
+
+const INVENTORY_URL = 'https://github.com/BI-US/no-system/raw/refs/heads/main/inventario/inventario_caducidades.json';
+const CADUCIDADES_URL = 'inventario_caducidades.json'; // Tu archivo local
+
+let allProducts = [];
+let allCaducidades = [];
+let currentSort = { field: 'id', direction: 'asc' };
+
+// Funciones de utilidad (de tu código)
+function fmt(v) { 
+    return Number(v||0).toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2}); 
+} 
+
+function esc(s) { 
+    return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); 
+} 
+
+function parseDateYMD(s) { 
+    if(!s) return null; 
+    if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return new Date(s+'T00:00:00'); 
+    if(/^\d{2}\/\d{2}\/\d{4}$/.test(s)) { 
+        const p=s.split('/'); 
+        return new Date(p[2]+'-'+p[1]+'-'+p[0]+'T00:00:00'); 
+    } 
+    const d=new Date(s); 
+    return isNaN(d)?null:d; 
+} 
+
+function formatYMD(d) { 
+    if(!d) return ''; 
+    const y=d.getFullYear(); 
+    const m=String(d.getMonth()+1).padStart(2,'0'); 
+    const day=String(d.getDate()).padStart(2,'0'); 
+    return y+'-'+m+'-'+day; 
+} 
+
+function addDays(d,n) { 
+    const x=new Date(d.getTime()); 
+    x.setDate(x.getDate()+Number(n)); 
+    return x; 
+} 
+
+function daysDiff(a,b) { 
+    return Math.floor((b.getTime()-a.getTime())/(1000*60*60*24)); 
+} 
+
+// Cálculo de caducidades (adaptado de tu código)
+function computeExpiryForItem(item) {
+    if(item.expiry_date) {
+        const d = parseDateYMD(item.expiry_date);
+        if(d) return d;
+    }
+    if(item.manufacture_date && item.shelf_life_days) {
+        const m = parseDateYMD(item.manufacture_date);
+        if(m) return addDays(m, Number(item.shelf_life_days));
+    }
+    return null;
+}
+
+function computeTotalsAndStatus(item) {
+    item.total = Math.round((Number(item.precio||0) * Number(item.cantidad||0)) * 100) / 100;
+    const exp = computeExpiryForItem(item);
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    
+    if(!exp) {
+        item.status = 'sin_fecha';
+        item.expiry_calc = null;
+        return;
+    }
+    
+    item.expiry_calc = formatYMD(exp);
+    const diff = daysDiff(today, exp);
+    item.days_to_expiry = diff;
+    
+    if(diff < 0) item.status = 'caducado';
+    else if(diff <= 7) item.status = 'por_vencer';
+    else item.status = 'ok';
+}
+
+// Cargar todos los datos
+async function loadAllData() {
+    try {
+        showLoading(true);
+        
+        // Cargar inventario principal
+        console.log('🔄 Cargando inventario principal...');
+        const inventoryResponse = await fetch(INVENTORY_URL);
+        if (!inventoryResponse.ok) throw new Error(`Error HTTP inventario: ${inventoryResponse.status}`);
+        allProducts = await inventoryResponse.json();
+        
+        // Cargar caducidades
+        console.log('🔄 Cargando datos de caducidades...');
+        try {
+            const caducidadesResponse = await fetch(CADUCIDADES_URL);
+            if (caducidadesResponse.ok) {
+                allCaducidades = await caducidadesResponse.json();
+            }
+        } catch (e) {
+            console.warn('No se pudo cargar caducidades:', e);
+        }
+        
+        console.log(`✅ Datos cargados: ${allProducts.length} productos`);
+        displayInventory();
+        displayCaducidades();
+        updateStats();
+        
+    } catch (error) {
+        console.error('❌ Error cargando datos:', error);
+        showError('Error al cargar los datos: ' + error.message);
+    } finally {
+        showLoading(false);
+    }
+}
+
+// Mostrar inventario
+function displayInventory() {
+    const tbody = document.getElementById('tableBody');
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const categoryFilter = document.getElementById('categoryFilter').value;
+    const statusFilter = document.getElementById('statusFilter').value;
+    
+    let filteredProducts = allProducts.filter(product => {
+        // Filtro de búsqueda
+        if (searchTerm && !(
+            product.nombre.toLowerCase().includes(searchTerm) ||
+            product.codigo.toLowerCase().includes(searchTerm) ||
+            (product.categoria && product.categoria.toLowerCase().includes(searchTerm))
+        )) {
+            return false;
+        }
+        
+        // Filtro de categoría
+        if (categoryFilter !== 'all' && product.categoria !== categoryFilter) {
+            return false;
+        }
+        
+        // Filtro de estado de stock
+        if (statusFilter !== 'all') {
+            const stock = product.stock || 0;
+            if (statusFilter === 'out' && stock > 0) return false;
+            if (statusFilter === 'low' && (stock >= 5 || stock === 0)) return false;
+            if (statusFilter === 'ok' && stock < 5) return false;
+        }
+        
+        return true;
+    });
+    
+    // Aplicar ordenamiento
+    if (currentSort.field) {
+        filteredProducts.sort((a, b) => {
+            let aValue = a[currentSort.field];
+            let bValue = b[currentSort.field];
+            
+            if (aValue === undefined) aValue = '';
+            if (bValue === undefined) bValue = '';
+            
+            if (['id', 'precio', 'stock'].includes(currentSort.field)) {
+                aValue = Number(aValue) || 0;
+                bValue = Number(bValue) || 0;
+                return currentSort.direction === 'asc' ? aValue - bValue : bValue - aValue;
+            }
+            
+            aValue = String(aValue).toLowerCase();
+            bValue = String(bValue).toLowerCase();
+            
+            if (currentSort.direction === 'asc') {
+                return aValue.localeCompare(bValue);
+            } else {
+                return bValue.localeCompare(aValue);
+            }
+        });
+    }
+    
+    if (filteredProducts.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px; color: #666;">No se encontraron productos</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = filteredProducts.map(product => {
+        const stockStatus = getStockStatus(product.stock);
+        const caducidadInfo = getCaducidadInfo(product);
+        
+        return `
+            <tr class="${caducidadInfo.rowClass}">
+                <td>${product.id}</td>
+                <td><strong>${product.codigo}</strong></td>
+                <td>${product.nombre}</td>
+                <td class="price">$${fmt(product.precio)}</td>
+                <td class="stock ${stockStatus.class}">${product.stock}</td>
+                <td>${product.categoria || 'General'}</td>
+                <td>${stockStatus.text}</td>
+                <td>${caducidadInfo.fecha}</td>
+                <td>${caducidadInfo.dias}</td>
+            </tr>
+        `;
+    }).join('');
+}
+
+// Mostrar caducidades
+function displayCaducidades() {
+    const tbody = document.getElementById('caducidadesBody');
+    const searchTerm = document.getElementById('searchCaducidades').value.toLowerCase();
+    const statusFilter = document.getElementById('caducidadFilter').value;
+    
+    if (!allCaducidades.categorias) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px; color: #666;">No hay datos de caducidades disponibles</td></tr>';
+        return;
+    }
+    
+    let allItems = [];
+    
+    // Recolectar todos los productos de todas las categorías
+    for (const [categoria, obj] of Object.entries(allCaducidades.categorias)) {
+        obj.productos.forEach(producto => {
+            producto.categoria = categoria;
+            computeTotalsAndStatus(producto);
+            allItems.push(producto);
+        });
+    }
+    
+    // Aplicar filtros
+    let filteredItems = allItems.filter(item => {
+        if (searchTerm && !item.producto.toLowerCase().includes(searchTerm)) {
+            return false;
+        }
+        
+        if (statusFilter !== 'all' && item.status !== statusFilter) {
+            return false;
+        }
+        
+        return true;
+    });
+    
+    if (filteredItems.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px; color: #666;">No se encontraron productos</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = filteredItems.map(item => {
+        const statusClass = `status-${item.status}`;
+        
+        return `
+            <tr class="${statusClass}">
+                <td><strong>${esc(item.producto)}</strong></td>
+                <td class="stock">${item.cantidad || 0}</td>
+                <td>${item.manufacture_date || ''}</td>
+                <td>${item.expiry_date || item.expiry_calc || ''}</td>
+                <td>${item.shelf_life_days || ''}</td>
+                <td>${getStatusText(item.status)}</td>
+                <td>${item.days_to_expiry !== undefined ? item.days_to_expiry + ' días' : 'N/A'}</td>
+            </tr>
+        `;
+    }).join('');
+}
+
+// Funciones auxiliares
+function getStockStatus(stock) {
+    if (stock === 0) {
+        return { class: 'low', text: 'Sin stock' };
+    } else if (stock < 5) {
+        return { class: 'low', text: 'Stock bajo' };
+    } else if (stock < 15) {
+        return { class: 'medium', text: 'Stock medio' };
+    } else {
+        return { class: 'high', text: 'Stock alto' };
+    }
+}
+
+function getCaducidadInfo(product) {
+    // Buscar en los datos de caducidades
+    if (allCaducidades.categorias) {
+        for (const [categoria, obj] of Object.entries(allCaducidades.categorias)) {
+            const item = obj.productos.find(p => p.producto === product.nombre);
+            if (item) {
+                computeTotalsAndStatus(item);
+                return {
+                    fecha: item.expiry_date || item.expiry_calc || 'N/A',
+                    dias: item.days_to_expiry !== undefined ? item.days_to_expiry + ' días' : 'N/A',
+                    rowClass: `status-${item.status}`
+                };
+            }
+        }
+    }
+    
+    return {
+        fecha: 'N/A',
+        dias: 'N/A',
+        rowClass: ''
+    };
+}
+
+function getStatusText(status) {
+    const statusMap = {
+        'caducado': '🔴 Caducado',
+        'por_vencer': '🟡 Por Vencer',
+        'ok': '🟢 En Tiempo',
+        'sin_fecha': '⚪ Sin Fecha'
+    };
+    return statusMap[status] || status;
+}
+
+function updateStats() {
+    const totalProducts = allProducts.length;
+    const lowStock = allProducts.filter(p => (p.stock || 0) < 5 && (p.stock || 0) > 0).length;
+    const totalValue = allProducts.reduce((sum, p) => sum + (p.precio * (p.stock || 0)), 0);
+    
+    let expiringCount = 0;
+    if (allCaducidades.categorias) {
+        for (const obj of Object.values(allCaducidades.categorias)) {
+            obj.productos.forEach(p => {
+                computeTotalsAndStatus(p);
+                if (p.status === 'por_vencer') expiringCount++;
+            });
+        }
+    }
+    
+    document.getElementById('totalProducts').textContent = totalProducts;
+    document.getElementById('lowStockCount').textContent = lowStock;
+    document.getElementById('expiringCount').textContent = expiringCount;
+    document.getElementById('totalValue').textContent = `$${fmt(totalValue)}`;
+}
+
+// Sistema de pestañas
+function showTab(tabName) {
+    // Ocultar todas las pestañas
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Mostrar pestaña seleccionada
+    document.getElementById(`${tabName}-tab`).classList.add('active');
+    document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
+}
+
+// Ordenamiento
+function sortTable(field) {
+    if (currentSort.field === field) {
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.field = field;
+        currentSort.direction = 'asc';
+    }
+    displayInventory();
+}
+
+// Búsqueda y filtros
+function setupEventListeners() {
+    document.getElementById('searchInput').addEventListener('input', displayInventory);
+    document.getElementById('categoryFilter').addEventListener('change', displayInventory);
+    document.getElementById('statusFilter').addEventListener('change', displayInventory);
+    document.getElementById('searchCaducidades').addEventListener('input', displayCaducidades);
+    document.getElementById('caducidadFilter').addEventListener('change', displayCaducidades);
+}
+
+// Exportar datos
+function exportarCaducidades() {
+    if (!allCaducidades.categorias) {
+        alert('No hay datos de caducidades para exportar');
+        return;
+    }
+    
+    const blob = new Blob([JSON.stringify(allCaducidades, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'reporte_caducidades.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function showLoading(show) {
+    // Podrías implementar un spinner aquí
+}
+
+function showError(message) {
+    alert('❌ ' + message);
+}
+
+function refreshData() {
+    loadAllData();
+}
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', function() {
+    loadAllData();
+    setupEventListeners();
+});
+
+  </script>
+</body>
+</html>
+
+<!-----
+
+```
+
+## 🎯 **Características incluidas:**
+
+### 📋 **Pestaña de Inventario:**
+- Vista completa de todos los productos
+- Búsqueda en tiempo real
+- Filtros por categoría y estado de stock
+- Ordenamiento por cualquier columna
+- Integración con datos de caducidades
+
+### 📅 **Pestaña de Caducidades:**
+- Sistema completo de control de fechas
+- Cálculo automático de días restantes
+- Estados visuales (caducado, por vencer, en tiempo)
+- Filtros por estado de caducidad
+- Exportación de reportes
+
+### 🔄 **Funcionalidades unificadas:**
+- **Carga desde GitHub** + archivo local de caducidades
+- **Cálculos automáticos** de totales y estados
+- **Interfaz responsive** y profesional
+- **Navegación** entre pestañas
+
+## 📁 **Archivos necesarios:**
+```
+/sistem-shop/
+├── inventory-completo.html    ← Este archivo
+├── inventory-completo.js      ← Este archivo
+├── styles_system.css          ← Tu CSS existente
+├── inventario_caducidades.json ← Tu archivo de caducidades
+└── (otros archivos del sistema)
+```
+
+**¡Y listo!** 🚀 Ahora tienes un sistema completo que combina el inventario principal con el control de caducidades, manteniendo toda la funcionalidad que ya tenías funcionando.
+
+¿Te gusta esta integración? ¿Necesitas que ajuste algo o agreguemos más funcionalidades? 😊

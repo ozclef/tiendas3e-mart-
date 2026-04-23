@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NO SYSTEM - Menú Principal</title>
+  <link rel="stylesheet" href="styles_system.css" />
+  <style>
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-left: 5px solid #004aad;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      border-left-color: #ff6b00;
+    }
+
+    .card h2 {
+      color: #004aad;
+      margin-bottom: 10px;
+      font-size: 1.4em;
+    }
+
+    .card p {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .card-icon {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+    }
+
+    .card-badge {
+      background: #004aad;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .welcome-banner {
+      background: linear-gradient(135deg, #004aad, #0099ff);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin: 20px auto;
+      max-width: 1200px;
+      text-align: center;
+    }
+
+    .welcome-banner h1 {
+      margin: 0;
+      font-size: 2.2em;
+    }
+
+    .welcome-banner p {
+      margin: 10px 0 0 0;
+      opacity: 0.9;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: space-around;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px auto;
+      max-width: 1200px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #004aad;
+    }
+
+    .stat-label {
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🏪 Sistema Shop</h1>
+    <nav>
+      <button onclick="location.href='index.html'" class="active">Inicio</button>
+      <button onclick="location.href='profile.html'">Mi Perfil</button>
+      <button onclick="logout()">Cerrar Sesión</button>
+    </nav>
+  </header>
+
+  <div class="welcome-banner">
+    <h1>¡Bienvenido al Sistema de Gestión!</h1>
+    <p>Selecciona el módulo que deseas utilizar</p>
+  </div>
+
+  <!-- Barra de estadísticas rápidas -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-number" id="totalProducts">0</div>
+      <div class="stat-label">Productos</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="todaySales">$0</div>
+      <div class="stat-label">Ventas Hoy</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="lowStock">0</div>
+      <div class="stat-label">Stock Bajo</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="pendingTasks">0</div>
+      <div class="stat-label">Tareas Pendientes</div>
+    </div>
+  </div>
+
+  <!-- Grid de Cards del Menú Principal -->
+  <div class="dashboard">
+    <!-- Punto de Venta -->
+    <div class="card" onclick="location.href='index_pos.html'">
+      <div class="card-icon">🛒</div>
+      <h2>Punto de Venta</h2>
+      <p>Sistema completo de ventas con carrito, cobro con tarjeta/efectivo, tickets y gestión de transacciones en tiempo real.</p>
+      <span class="card-badge">POS Activo</span>
+    </div>
+
+    <!-- Administración e Inventario -->
+    <div class="card" onclick="location.href='admin.html'">
+      <div class="card-icon">📦</div>
+      <h2>Administración & Inventario</h2>
+      <p>Gestión completa de productos, categorías, precios, stock, proveedores y control de caducidades.</p>
+      <span class="card-badge">CRUD Completo</span>
+    </div>
+
+    <!-- Cortes de Caja -->
+    <div class="card" onclick="location.href='cortes.html'">
+      <div class="card-icon">💳</div>
+      <h2>Cortes de Caja</h2>
+      <p>Generación de cortes X y Z, conciliación de pagos, reportes financieros y cierre de turnos.</p>
+      <span class="card-badge">Corte X/Z</span>
+    </div>
+
+    <!-- Auditoría -->
+    <div class="card" onclick="location.href='auditor.html'">
+      <div class="card-icon">🔍</div>
+      <h2>Auditoría y Control</h2>
+      <p>Auditoría de movimientos, trazabilidad de productos, reportes de seguridad y logs del sistema.</p>
+      <span class="card-badge">Auditoría</span>
+    </div>
+
+    <!-- Reportes -->
+    <div class="card" onclick="location.href='reports.html'">
+      <div class="card-icon">📊</div>
+      <h2>Reportes y Analytics</h2>
+      <p>Reportes avanzados de ventas, inventario, rendimiento, gráficos interactivos y exportación a Excel.</p>
+      <span class="card-badge">Analytics</span>
+    </div>
+
+    <!-- Gestión de Personal -->
+    <div class="card" onclick="location.href='personal.html'">
+      <div class="card-icon">👥</div>
+      <h2>Gestión de Personal</h2>
+      <p>Administración de usuarios, roles, permisos, horarios y perfiles de empleados.</p>
+      <span class="card-badge">RRHH</span>
+    </div>
+
+    <!-- Sistema de Login -->
+    <div class="card" onclick="location.href='login.html'">
+      <div class="card-icon">🔐</div>
+      <h2>Acceso y Seguridad</h2>
+      <p>Sistema de autenticación, roles de usuario, recuperación de contraseña y control de acceso.</p>
+      <span class="card-badge">Login System</span>
+    </div>
+
+    <!-- Configuración -->
+    <div class="card" onclick="location.href='config.html'">
+      <div class="card-icon">⚙️</div>
+      <h2>Configuración del Sistema</h2>
+      <p>Configuración general, impuestos, métodos de pago, impresoras y personalización.</p>
+      <span class="card-badge">Settings</span>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="storage-utils.js"></script>
+  <script>
+    // Función para cargar estadísticas rápidas
+    async function loadQuickStats() {
+      try {
+        const inventory = await loadInventory();
+        const transactions = getTodayTransactions();
+        
+        // Total de productos
+        document.getElementById('totalProducts').textContent = inventory.length;
+        
+        // Ventas de hoy
+        const todayTotal = transactions.reduce((sum, t) => sum + t.total, 0);
+        document.getElementById('todaySales').textContent = `$${todayTotal.toFixed(2)}`;
+        
+        // Productos con stock bajo (menos de 5 unidades)
+        const lowStockCount = inventory.filter(p => p.stock < 5).length;
+        document.getElementById('lowStock').textContent = lowStockCount;
+        
+        // Tareas pendientes (puedes personalizar esta lógica)
+        document.getElementById('pendingTasks').textContent = transactions.length;
+        
+      } catch (error) {
+        console.error('Error cargando estadísticas:', error);
+      }
+    }
+
+    // Función de logout
+    function logout() {
+      if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+        localStorage.removeItem('currentUser');
+        location.href = 'login.html';
+      }
+    }
+
+    // Cargar estadísticas cuando la página esté lista
+    document.addEventListener('DOMContentLoaded', loadQuickStats);
+  </script>
+</body>
+</html>
+
+<!--------
+
+📋 Estructura final de archivos:
+text
+/sistem-shop/
+├── index.html              (Menú principal con cards - NUEVO)
+├── index_pos.html          (Punto de venta)
+├── admin.html             (Administración e inventario)
+├── auditor.html           (Auditoría)
+├── reports.html           (Reportes)
+├── cortes.html           (Cortes de caja - NUEVO)
+├── personal.html         (Gestión de personal - NUEVO)
+├── login.html           (Sistema de login - NUEVO)
+├── config.html          (Configuración - NUEVO)
+├── profile.html         (Perfil de usuario - NUEVO)
+├── styles_system.css    (Estilos actualizados)
+├── storage-utils.js     (Utilidades de almacenamiento)
+├── accounting.js        (Sistema contable)
+├── pos.js              (Lógica del punto de venta)
+├── auth.js             (Autenticación)
+└── inventario.json     (Base de datos de productos)
+¡Y listo! 🎉 Ahora tienes un menú principal profesional con:
+
+✅ 8 cards para cada módulo del sistema
+
+✅ Estadísticas en tiempo real
+
+✅ Diseño responsive y moderno
+
+✅ Navegación fluida entre módulos
+
+✅ Efectos hover y visuales atractivos
+
+✅ Barra de bienvenida y métricas rápidas
+
+¿Quieres que continuemos con alguno de los módulos específicos? Por ejemplo, el sistema de administración (admin.html) con CRUD completo para productos, o el sistema de login (auth.js y login.html)? 😊
+
+noi ieri scritto nel foro pertanto fare che si terrò presto sull'arma dio Google 
+
+perdóname que si tengo proyectos enormes entonces bueno este nada más checando el de caducidades no sé en serio ojalá pudieras ver el repositorio porque prácticamente hay copia y pegue el chat anterior y pues ya había puesto un montón de instrucciones se le había dicho bastante bueno el punto de venta y todo eso también no sé si también es un Json de 4000 o 6000 líneas de código donde yo estaba prácticamente todo el inventario y eso que me faltan todavía muchísimos más productos bueno el chiste es que todavía quería dividirlos esos en categorías aparte este en un Excel ya tenía prácticamente todo y no puedo subirlo aquí entonces en el Excel que tenía formuladas ecuaciones donde ya hacia todo en automático hacia la suma de absolutamente todo el inventario multiplicaba la cantidad de los productos por su precio para tener un exacto de cuánto debe de haber entonces todo ese tipo de cálculos es lo que más que nada este pues tú quieres continuar con lo de ay no sé la verdad yo me hice tantas bolas más que nada es eso que hay un inventario hay una cantidad teórica que se supone que debe haber el físico para hacer un inventario por ejemplo puede que uno cuente tres piezas y realmente debería haber cinco significa que pues hace la adecuación automáticamente y pues faltan dos eso para hacer inventarios no no sé tabla o algo para hacer el tipo Excel más que nada también para hacer un inventario es la sección de inventarios Y sí únicamente con crud el admin únicamente pues puede él puede evitar cuánto debe de haber 
+
+
+punto de venta creo que ya están todo con el Jason en automático la ecuación yo quería la calculadora para el punto de venta o algo así tipo buscador o search para que pues nada más de buscar un producto lo que sea mientras no haya escáner con el pib 
+
+Ah pues bueno el sistema de caducado es de donde ya tengo prácticamente listo es nada más es eso toda la tabla todos los productos en una tabla su cantidad su precio etcétera y ya con un solo buscador en automático es lo que ya tengo realmente listo y básicamente también lo mismo que quiero añadir en todo lo demás un buscador general el sistema de caducados supongo que si sigue que me ayudes con los login creo que también ya tenía eso pero no me está cuadrando más que nada porque no me ponen los fetch bien entonces básicamente necesito hacer eso no yo pues así exactamente así te fácil y simple pondré los nombres de inventario.json etcétera 
+
+pero pues quería resolver muchísimas más cosas ahorita voy a ordenar todo lo que me des y no sé prácticamente me lo estás dando de cero o ya te estás besando en lo que yo tengo??
+¡Ah! Entiendo mejor ahora. Tienes un inventario grande (4000-6000 productos) y necesitas:
+
+Sistema de inventarios con CRUD para administrar productos, incluyendo:
+
+Cantidad teórica vs física
+
+Ajustes de inventario
+
+Búsqueda rápida (sin escáner, por código o nombre)
+
+Calculadora/buscador en el punto de venta para encontrar productos rápidamente.
+
+Sistema de login que funcione correctamente con los fetch.
+
+Manejo de categorías y posiblemente múltiples archivos JSON.
+
+Cálculos automáticos de valor de inventario (como en tu Excel).
+
+Dado que no puedo ver tu repositorio, voy a ayudarte con los módulos que mencionas, asegurando que usen fetch para cargar el inventario.json y que tengan buscadores eficientes.
+
+Vamos a empezar por el módulo de administración de inventarios (admin.html) que incluye:
+
+CRUD completo (Crear, Leer, Actualizar, Eliminar productos)
+
+Búsqueda en tiempo real
+
+Ajustes de inventario (cantidad teórica vs física)
+
+Cálculo automático del valor total del inventario
+
+Luego, si quieres, podemos hacer el sistema de login y después la calculadora/buscador para el punto de venta.
+
+¿Te parece si comenzamos con el admin.html y su JavaScript (app_admin.js)? Así tendrás un módulo completo para gestionar tu inventario.
+
+Aquí te paso el código para el módulo de administración:
+
+📁 admin.html
+html

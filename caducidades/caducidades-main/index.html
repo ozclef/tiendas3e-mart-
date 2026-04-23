@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Inventario — Caducidades</title>
+
+  <!-- Si tienes CSS compilado, reemplaza este <style> por un <link rel="stylesheet" href="style.css"> -->
+  <style>
+  /* --- CSS visual (puedes sustituir por tu style.sc compilado) --- */
+  :root{
+    --bg:#f6f8fb;
+    --card:#ffffff;
+    --accent:#0366d6;
+    --muted:#6b7280;
+    --row:#fbfeff;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    background: linear-gradient(180deg,#f8fafc 0%, var(--bg) 100%);
+    margin:0;padding:22px;color:#0b1220;
+  }
+  .box{
+    background:var(--card);
+    padding:18px;border-radius:var(--radius);
+    box-shadow:0 10px 30px rgba(10,20,40,0.06);
+    border:1px solid rgba(2,6,23,0.04);
+    max-width:1100px;margin:0 auto;
+  }
+  .header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .title{display:flex;gap:12px;align-items:center}
+  .brand{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#34d399,#0ea5e9);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+  h1{font-size:18px;margin:0}
+  .small{font-size:13px;color:var(--muted)}
+  .controls{display:flex;gap:8px;align-items:center}
+  input,select,button{padding:8px 10px;border-radius:10px;border:1px solid #e6eef8;background:#fff;font-size:14px}
+  button.primary{background:linear-gradient(90deg,var(--accent),#1b9df0);color:white;border:none;padding:9px 12px;border-radius:999px;cursor:pointer}
+  .table-wrap{overflow:auto;border-radius:10px;border:1px solid #eef4ff;margin-top:12px}
+  table{width:100%;border-collapse:separate;border-spacing:0;min-width:720px}
+  thead th{position:sticky;top:0;background:linear-gradient(90deg,var(--accent),#0a7bd6);color:white;padding:12px 14px;text-align:left;font-weight:600;font-size:13px}
+  tbody tr{background:var(--row);transition:transform .18s ease, box-shadow .18s ease}
+  tbody tr:hover{transform: translateY(-6px);box-shadow: 0 12px 28px rgba(11,18,32,0.06)}
+  th,td{padding:12px 14px;border-bottom:1px solid #f1f6fb;font-size:14px}
+  td[contenteditable]{background:linear-gradient(180deg,#fbfeff,#f6fbff);border-radius:8px}
+  .cell-user{display:flex;gap:12px;align-items:center}
+  .avatar{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:700;color:white}
+  .sub{font-size:12px;color:var(--muted)}
+  .badge{display:inline-block;padding:6px 8px;border-radius:999px;font-size:12px;font-weight:700}
+  .badge.green{background:#ecfdf5;color:#059669}
+  .badge.orange{background:#fff7ed;color:#b45309}
+  .badge.red{background:#fff1f2;color:#be123c}
+  .stock{width:120px;height:10px;background:#f1f7ff;border-radius:999px;overflow:hidden;border:1px solid #e6f0ff}
+  .stock > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#34d399,#06b6d4);width:40%}
+  .actions{display:flex;gap:8px}
+  .btn{padding:8px 10px;border-radius:8px;border:1px solid #e6eef8;background:#fff;cursor:pointer}
+  .subtotal{font-weight:800;background:linear-gradient(180deg,#f1fbff,#eef9ff);padding:10px;border-radius:10px;margin-top:10px;display:flex;justify-content:space-between;align-items:center}
+  @media (max-width:820px){table{min-width:640px}.controls{flex-direction:column;align-items:stretch}}
+  /* small helpers */
+  .muted{color:var(--muted);font-size:13px}
+  .right{text-align:right}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="header">
+      <div class="title">
+        <div class="brand">HC</div>
+        <div>
+          <h1>Inventario / Caducidades</h1>
+          <div class="small">Interfaz visual — editable. Guarda con "Exportar".</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <input id="search" placeholder="Buscar producto o categoría..." />
+        <select id="categoryFilter">
+          <option value="all">Todo</option>
+          <!-- categorías se inyectan desde script.js -->
+        </select>
+        <button id="exportJson" class="primary">Exportar JSON</button>
+      </div>
+    </div>
+
+    <div id="tablaWrapper" class="table-wrap">
+      <!-- tablas por categoría serán renderizadas aquí por script.js -->
+    </div>
+
+    <div class="subtotal">
+      <div class="muted">Total inventario</div>
+      <div><strong>$ <span id="grandTotal">0.00</span></strong></div>
+    </div>
+  </div>
+
+  <!-- Tu script principal -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!-------
+
+
+I'll help you create a simple HTML page that fetches and displays your `inventario.json` data in a table with search and sorting functionality. Here's the complete solution:
+
+## 📋 inventory.html
+
+```html
+-------->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Shop - Inventario</title>
+    <link rel="stylesheet" href="styles_system.css">
+    <style>
+        .inventory-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .search-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .search-box:focus {
+            border-color: #004aad;
+            outline: none;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .inventory-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .inventory-table th {
+            background: #004aad;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+
+        .inventory-table th:hover {
+            background: #003a8a;
+        }
+
+        .inventory-table th::after {
+            content: '↕';
+            position: absolute;
+            right: 10px;
+            opacity: 0.7;
+        }
+
+        .inventory-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .inventory-table tr:hover {
+            background: #f5f9ff;
+        }
+
+        .inventory-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .price {
+            text-align: right;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .stock {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .stock.low {
+            color: #dc3545;
+        }
+
+        .stock.medium {
+            color: #ffc107;
+        }
+
+        .stock.high {
+            color: #28a745;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-low {
+            background: #dc3545;
+        }
+
+        .status-medium {
+            background: #ffc107;
+        }
+
+        .status-high {
+            background: #28a745;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #dc3545;
+            background: #f8d7da;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .stat-number {
+            font-weight: bold;
+            color: #004aad;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📦 Inventario del Sistema</h1>
+        <nav>
+            <button onclick="location.href='index.html'">Inicio</button>
+            <button onclick="location.href='index_pos.html'">Punto de Venta</button>
+            <button onclick="refreshInventory()">🔄 Actualizar</button>
+        </nav>
+    </header>
+
+    <div class="inventory-container">
+        <div class="search-section">
+            <input type="text" id="searchInput" class="search-box" 
+                   placeholder="🔍 Buscar productos por nombre, código, categoría..." 
+                   onkeyup="filterProducts()">
+            
+            <div class="stats">
+                <div class="stat-card">
+                    Total productos: <span id="totalProducts" class="stat-number">0</span>
+                </div>
+                <div class="stat-card">
+                    Stock bajo: <span id="lowStockCount" class="stat-number">0</span>
+                </div>
+                <div class="stat-card">
+                    Valor total: <span id="totalValue" class="stat-number">$0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="inventory-table" id="inventoryTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('id')">ID</th>
+                        <th onclick="sortTable('codigo')">Código</th>
+                        <th onclick="sortTable('nombre')">Nombre</th>
+                        <th onclick="sortTable('precio')">Precio</th>
+                        <th onclick="sortTable('stock')">Stock</th>
+                        <th onclick="sortTable('categoria')">Categoría</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Los productos se cargarán aquí -->
+                    <tr>
+                        <td colspan="7" class="loading">Cargando inventario...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="inventory.js"></script>
+
+  <!---
+</body>
+</html>
+```
+
+## 📜 inventory.js
+
+```javascript
+
+---->
+<script>
+// inventory.js - Sistema de gestión de inventario con búsqueda y ordenamiento
+
+const INVENTORY_URL = 'https://raw.githubusercontent.com/BI-US/no-system/main/inventario.json';
+let allProducts = [];
+let currentSort = { field: 'id', direction: 'asc' };
+
+// Cargar inventario desde GitHub 
+async function loadInventory() {
+    try {
+        showLoading(true);
+        
+        console.log('🔄 Cargando inventario desde GitHub...');
+        const response = await fetch(INVENTORY_URL);
+        
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+        
+        const inventory = await response.json();
+        console.log(`✅ Inventario cargado: ${inventory.length} productos`);
+        
+        allProducts = inventory;
+        displayProducts(inventory);
+        updateStats(inventory);
+        
+    } catch (error) {
+        console.error('❌ Error cargando inventario:', error);
+        showError('Error al cargar el inventario: ' + error.message);
+    } finally {
+        showLoading(false);
+    }
+}
+
+// Mostrar productos en la tabla
+function displayProducts(products) {
+    const tbody = document.getElementById('tableBody');
+    
+    if (products.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="error">No se encontraron productos</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = products.map(product => {
+        const stockStatus = getStockStatus(product.stock);
+        
+        return `
+            <tr>
+                <td>${product.id}</td>
+                <td><strong>${product.codigo}</strong></td>
+                <td>${product.nombre}</td>
+                <td class="price">$${product.precio.toFixed(2)}</td>
+                <td class="stock ${stockStatus.class}">${product.stock}</td>
+                <td>${product.categoria || 'General'}</td>
+                <td>
+                    <span class="status-indicator ${stockStatus.indicatorClass}"></span>
+                    ${stockStatus.text}
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+// Filtrar productos basado en búsqueda 
+function filterProducts() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+    
+    if (!searchTerm) {
+        displayProducts(allProducts);
+        updateStats(allProducts);
+        return;
+    }
+    
+    // Dividir términos de búsqueda para búsqueda múltiple 
+    const searchTerms = searchTerm.split(' ');
+    
+    const filteredProducts = allProducts.filter(product => {
+        // Verificar si TODOS los términos de búsqueda coinciden en algún campo
+        return searchTerms.every(term => {
+            return (
+                (product.nombre && product.nombre.toLowerCase().includes(term)) ||
+                (product.codigo && product.codigo.toLowerCase().includes(term)) ||
+                (product.categoria && product.categoria.toLowerCase().includes(term)) ||
+                (product.id && product.id.toString().includes(term))
+            );
+        });
+    });
+    
+    displayProducts(filteredProducts);
+    updateStats(filteredProducts);
+}
+
+// Ordenar tabla 
+function sortTable(field) {
+    // Cambiar dirección si es el mismo campo
+    if (currentSort.field === field) {
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.field = field;
+        currentSort.direction = 'asc';
+    }
+    
+    const sortedProducts = [...allProducts].sort((a, b) => {
+        let aValue = a[field];
+        let bValue = b[field];
+        
+        // Manejar valores undefined
+        if (aValue === undefined) aValue = '';
+        if (bValue === undefined) bValue = '';
+        
+        // Ordenamiento numérico para campos específicos
+        if (field === 'id' || field === 'precio' || field === 'stock') {
+            aValue = Number(aValue) || 0;
+            bValue = Number(bValue) || 0;
+            return currentSort.direction === 'asc' ? aValue - bValue : bValue - aValue;
+        }
+        
+        // Ordenamiento alfabético para otros campos
+        aValue = String(aValue).toLowerCase();
+        bValue = String(bValue).toLowerCase();
+        
+        if (currentSort.direction === 'asc') {
+            return aValue.localeCompare(bValue);
+        } else {
+            return bValue.localeCompare(aValue);
+        }
+    });
+    
+    displayProducts(sortedProducts);
+}
+
+// Actualizar estadísticas
+function updateStats(products) {
+    const totalProducts = products.length;
+    const lowStock = products.filter(p => p.stock < 5).length;
+    const totalValue = products.reduce((sum, p) => sum + (p.precio * p.stock), 0);
+    
+    document.getElementById('totalProducts').textContent = totalProducts;
+    document.getElementById('lowStockCount').textContent = lowStock;
+    document.getElementById('totalValue').textContent = `$${totalValue.toFixed(2)}`;
+}
+
+// Obtener estado del stock
+function getStockStatus(stock) {
+    if (stock === 0) {
+        return { class: 'low', text: 'Sin stock', indicatorClass: 'status-low' };
+    } else if (stock < 5) {
+        return { class: 'low', text: 'Stock bajo', indicatorClass: 'status-low' };
+    } else if (stock < 15) {
+        return { class: 'medium', text: 'Stock medio', indicatorClass: 'status-medium' };
+    } else {
+        return { class: 'high', text: 'Stock alto', indicatorClass: 'status-high' };
+    }
+}
+
+// Mostrar/ocultar loading
+function showLoading(show) {
+    const tbody = document.getElementById('tableBody');
+    if (show) {
+        tbody.innerHTML = '<tr><td colspan="7" class="loading">Cargando inventario...</td></tr>';
+    }
+}
+
+// Mostrar error
+function showError(message) {
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = `<tr><td colspan="7" class="error">${message}</td></tr>`;
+}
+
+// Refrescar inventario
+function refreshInventory() {
+    loadInventory();
+}
+
+// Cargar inventario cuando la página esté lista
+document.addEventListener('DOMContentLoaded', loadInventory);
+
+// Agregar funcionalidad de tecla Enter para búsqueda
+document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        filterProducts();
+    }
+});
+    </script>
+    </body>
+    </html>
+      
+      
+```
+
+## 🎯 Características incluidas:
+
+### 🔍 **Sistema de Búsqueda Avanzado**
+- Búsqueda en tiempo real mientras escribes 
+- Busca en todos los campos: nombre, código, categoría, ID 
+- Soporta múltiples términos de búsqueda (ej: "laptop gamer")
+
+### 📊 **Ordenamiento por Columnas**
+- Haz clic en cualquier cabecera para ordenar 
+- Ordena por ID, código, nombre, precio, stock, categoría
+- Alterna entre ascendente/descendente
+
+### 📈 **Estadísticas en Tiempo Real**
+- Total de productos mostrados
+- Conteo de productos con stock bajo
+- Valor total del inventario
+
+### 🎨 **Indicadores Visuales**
+- Colores para diferentes niveles de stock
+- Indicadores de estado con iconos
+- Diseño responsive con hover effects
+
+### 🔄 **Funcionalidades Adicionales**
+- Actualización manual del inventario
+- Manejo elegante de errores
+- Loading states durante la carga
+
+## 📁 Estructura de archivos necesaria:
+```
+/sistem-shop/
+├── inventory.html    ← Este archivo
+├── inventory.js      ← Este archivo  
+├── styles_system.css ← Tu CSS existente
+└── (otros archivos del sistema)
+```
+
+**¡Y listo!** 🚀 Con esto tienes un sistema completo de gestión de inventario que se conecta directamente con tu GitHub y muestra todos los productos en una tabla profesional con búsqueda y ordenamiento.
+
+¿Te gustaría que ajustemos algo o agreguemos más funcionalidades? 😊

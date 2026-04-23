@@ -1,0 +1,700 @@
+{
+  "meta": {
+    "productos_count": 447,
+    "categorias_count": 7,
+    "generated_on": "2025-10-10",
+    "grand_total": 2607911.25
+  },
+  "categorias": {
+    "mas vendido": {
+      "subtotal": 2108811.25,
+      "productos": [
+        {
+          "categoria": "mas vendido",
+          "producto": "tortillas!",
+          "precio": 9720.25,
+          "cantidad": 50,
+          "total": 486012.5,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "#VALUE!",
+          "precio": 7941.12,
+          "cantidad": 50,
+          "total": 397056.25,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "KEY",
+          "precio": 3.0,
+          "cantidad": 50,
+          "total": 150.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "#REF!",
+          "precio": 0,
+          "cantidad": 50,
+          "total": 0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "tortillas",
+          "precio": 19.0,
+          "cantidad": 50,
+          "total": 19,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 1
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "huevo",
+          "precio": 43.0,
+          "cantidad": 50,
+          "total": 21.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 7
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "pan Teleras",
+          "precio": 5.0,
+          "cantidad": 50,
+          "total": 250.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2025-11-09",
+          "shelf_life_days": 30
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Pan dulce",
+          "precio": 7.0,
+          "cantidad": 50,
+          "total": 350.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2025-11-09",
+          "shelf_life_days": 30
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "azúcar",
+          "precio": 26.0,
+          "cantidad": 50,
+          "total": 1300.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "z",
+          "precio": 0,
+          "cantidad": 50,
+          "total": 0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Column 11",
+          "precio": 11.0,
+          "cantidad": 50,
+          "total": 550.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "chips fuego",
+          "precio": 20.0,
+          "cantidad": 50,
+          "total": 1000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "chips sal",
+          "precio": 20.0,
+          "cantidad": 50,
+          "total": 1000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "chips jalapeño",
+          "precio": 20.0,
+          "cantidad": 50,
+          "total": 1000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Takis brava",
+          "precio": 18.0,
+          "cantidad": 50,
+          "total": 900.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "originales",
+          "precio": 18.0,
+          "cantidad": 50,
+          "total": 900.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "guacamole",
+          "precio": 18.0,
+          "cantidad": 50,
+          "total": 900.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "azules",
+          "precio": 18.0,
+          "cantidad": 50,
+          "total": 900.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Chile y limón",
+          "precio": 18.0,
+          "cantidad": 50,
+          "total": 900.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Fuego",
+          "precio": 18.0,
+          "cantidad": 50,
+          "total": 900.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Barcel Sal",
+          "precio": 16.0,
+          "cantidad": 50,
+          "total": 800.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Barcel Mexicanas Adobadas",
+          "precio": 16.0,
+          "cantidad": 50,
+          "total": 800.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Runner Azules",
+          "precio": 16.0,
+          "cantidad": 50,
+          "total": 800.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Limón y Sal",
+          "precio": 16.0,
+          "cantidad": 50,
+          "total": 800.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Fuego",
+          "precio": 16.0,
+          "cantidad": 50,
+          "total": 800.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "originales",
+          "precio": 16.0,
+          "cantidad": 50,
+          "total": 800.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Big Mix Inglesa",
+          "precio": 20.0,
+          "cantidad": 50,
+          "total": 1000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Big Mix Queso",
+          "precio": 20.0,
+          "cantidad": 50,
+          "total": 1000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "pop queso",
+          "precio": 12.0,
+          "cantidad": 50,
+          "total": 600.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Column 11",
+          "precio": 11.0,
+          "cantidad": 50,
+          "total": 550.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "santa clara entera",
+          "precio": 32.0,
+          "cantidad": 50,
+          "total": 1600.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2025-10-24",
+          "shelf_life_days": 14
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "santa clara deslaxtosada",
+          "precio": 33.0,
+          "cantidad": 50,
+          "total": 1650.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2025-10-24",
+          "shelf_life_days": 14
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Lala entera 1litro",
+          "precio": 1.0,
+          "cantidad": 50,
+          "total": 50.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "nutri leche",
+          "precio": 23.0,
+          "cantidad": 50,
+          "total": 1150.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2025-10-24",
+          "shelf_life_days": 14
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Lala 100",
+          "precio": 100.0,
+          "cantidad": 50,
+          "total": 5000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "santa clara  Fresa 200ml",
+          "precio": 200.0,
+          "cantidad": 50,
+          "total": 10000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2025-10-24",
+          "shelf_life_days": 14
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "sabrolet",
+          "precio": 15.0,
+          "cantidad": 50,
+          "total": 750.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Santa clara 200ml choco",
+          "precio": 200.0,
+          "cantidad": 50,
+          "total": 10000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2025-10-24",
+          "shelf_life_days": 14
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "santa clara 35 ML choco",
+          "precio": 35.0,
+          "cantidad": 50,
+          "total": 1750.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2025-10-24",
+          "shelf_life_days": 14
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "santa clara 355 mal fresa",
+          "precio": 355.0,
+          "cantidad": 50,
+          "total": 17750.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2025-10-24",
+          "shelf_life_days": 14
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Nito 300",
+          "precio": 300.0,
+          "cantidad": 50,
+          "total": 15000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Lala deslac 1L",
+          "precio": 1.0,
+          "cantidad": 50,
+          "total": 50.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Columna 1",
+          "precio": 1.0,
+          "cantidad": 50,
+          "total": 50.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Coca 1.75",
+          "precio": 1.75,
+          "cantidad": 50,
+          "total": 87.5,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "coca 2.25",
+          "precio": 2.25,
+          "cantidad": 50,
+          "total": 112.5,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "coca 3Litros",
+          "precio": 3.0,
+          "cantidad": 50,
+          "total": 150.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "COCA RET 2,5",
+          "precio": 25.0,
+          "cantidad": 50,
+          "total": 1250.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Coca chubby SA",
+          "precio": 10.0,
+          "cantidad": 50,
+          "total": 500.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Coca Mini pet",
+          "precio": 12.0,
+          "cantidad": 50,
+          "total": 600.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Coca Lata",
+          "precio": 20.0,
+          "cantidad": 50,
+          "total": 1000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2035-10-08",
+          "shelf_life_days": 3650
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Coca Ret 500 mil",
+          "precio": 500.0,
+          "cantidad": 50,
+          "total": 25000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Coca 400ml",
+          "precio": 400.0,
+          "cantidad": 50,
+          "total": 20000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Coca 600ml",
+          "precio": 600.0,
+          "cantidad": 50,
+          "total": 30000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Coca Ret 1 1/4",
+          "precio": 114.0,
+          "cantidad": 50,
+          "total": 5700.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Coca 1.35 L",
+          "precio": 1.35,
+          "cantidad": 50,
+          "total": 67.5,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "coca Ret 3",
+          "precio": 3.0,
+          "cantidad": 50,
+          "total": 150.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2030-10-09",
+          "shelf_life_days": 1825
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "envases",
+          "precio": 10.0,
+          "cantidad": 50,
+          "total": 500.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "rejas",
+          "precio": 5.0,
+          "cantidad": 50,
+          "total": 250.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Columna 1",
+          "precio": 1.0,
+          "cantidad": 50,
+          "total": 50.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Column 11",
+          "precio": 11.0,
+          "cantidad": 50,
+          "total": 550.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "electrolicts",
+          "precio": 25.0,
+          "cantidad": 50,
+          "total": 1250.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Gatorade 500ml",
+          "precio": 500.0,
+          "cantidad": 50,
+          "total": 25000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Ciel 1Litro",
+          "precio": 1.0,
+          "cantidad": 50,
+          "total": 50.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Bonafont Levite 600 té",
+          "precio": 600.0,
+          "cantidad": 50,
+          "total": 30000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Bonafont 1L",
+          "precio": 1.0,
+          "cantidad": 50,
+          "total": 50.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Garrafont 20 Ciel",
+          "precio": 20.0,
+          "cantidad": 50,
+          "total": 1000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Amper",
+          "precio": 20.0,
+          "cantidad": 50,
+          "total": 1000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Arizona",
+          "precio": 19.0,
+          "cantidad": 50,
+          "total": 950.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_days": 365
+        },
+        {
+          "categoria": "7 JULIO",
+          "producto": "Topochico 600",
+          "precio": 600.0,
+          "cantidad": 50,
+          "total": 30000.0,
+          "manufacture_date": "2025-10-10",
+          "expiry_date": "2026-10-10",
+          "shelf_life_day

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Sistema</title>
+</head>
+<body>
+    <h1>🔧 Debug del Sistema</h1>
+    <button onclick="testSystem()">Probar Sistema</button>
+    <div id="debugOutput"></div>
+
+    <script src="storage-utils.js"></script>
+    <script>
+        async function testSystem() {
+            const output = document.getElementById('debugOutput');
+            output.innerHTML = '<p>🔍 Probando sistema...</p>';
+            
+            try {
+                // Test 1: Cargar inventario
+                const inventory = await loadInventory();
+                output.innerHTML += `<p>✅ Inventario cargado: ${inventory.length} productos</p>`;
+                
+                // Test 2: Verificar productos
+                if (inventory.length > 0) {
+                    output.innerHTML += `<p>✅ Primer producto: ${inventory[0].nombre} - $${inventory[0].precio}</p>`;
+                }
+                
+                // Test 3: Transacciones
+                const transactions = getTransactions();
+                output.innerHTML += `<p>✅ Transacciones: ${transactions.length} encontradas</p>`;
+                
+                output.innerHTML += '<p style="color: green; font-weight: bold;">🎉 ¡Sistema funcionando correctamente!</p>';
+                
+            } catch (error) {
+                output.innerHTML += `<p style="color: red;">❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Ejecutar automáticamente
+        testSystem();
+    </script>
+</body>
+</html>
